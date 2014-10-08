@@ -49,8 +49,8 @@ sub image_to_sprite {
 sub _get_palette_colors {
     my ($image) = @_;
 
-    my %unique_values;
-    my $idx = 0;
+    my %unique_values = ("1;1;1" => 0);
+    my $idx = 1;
     for my $row (0..$image->height - 1) {
         for my $col (0..$image->width - 1) {
             my $pixel = $image->raw_pixel($row, $col);
