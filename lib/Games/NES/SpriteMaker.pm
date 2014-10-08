@@ -1,6 +1,7 @@
 package Games::NES::SpriteMaker;
 use strict;
 use warnings;
+# ABSTRACT: manipulate PNM files and generate NES sprite data from them
 
 use Exporter 'import';
 our @EXPORT_OK = ('image_to_sprite');
