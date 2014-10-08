@@ -4,6 +4,38 @@ use warnings;
 
 use Image::PNM;
 
+=head1 SYNOPSIS
+
+  use Games::NES::SpriteMaker;
+
+  open my $fh, '>', 'sprites.chr';
+  my $chr = Games::NES::SpriteMaker::image_to_sprite('spritemap.pgm');
+  $fh->print($chr);
+  $fh->close;
+
+=head1 DESCRIPTION
+
+This module contains useful functions for manipulating images in the PNM format
+in order to create and modify sprite data (CHR-ROM banks) in NES roms. The idea
+is that drawing sprites is much easier in a real graphics editor, and then you
+can save the image as a .pbm/.pgm/.ppm file and convert it into sprite data
+directly, rather than having to edit sprites in a hex editor.
+
+Right now, the capabilities are pretty limited, but I'm open to adding more
+functionality as it becomes useful.
+
+=cut
+
+=func image_to_sprite($data, %opts)
+
+Converts PNM data to CHR-ROM data. C<$data> can either be a filename or a
+scalar reference which is a reference to a string containing PNM-format data.
+C<%opts> is a hash of options for how to generate the data. Currently the only
+option is C<rom_size>, which determines the size of the .chr file to generate.
+It defaults to C<8192>.
+
+=cut
+
 sub image_to_sprite {
     my ($data, %opts) = @_;
 
@@ -70,5 +102,42 @@ sub _color_key {
     my ($pixel) = @_;
     return "$pixel->[0];$pixel->[1];$pixel->[2]";
 }
+
+=head1 BUGS
+
+Please report any bugs to GitHub Issues at
+L<https://github.com/doy/games-nes-spritemaker/issues>.
+
+=head1 SEE ALSO
+
+=head1 SUPPORT
+
+You can find this documentation for this module with the perldoc command.
+
+    perldoc Games::NES::SpriteMaker
+
+You can also look for information at:
+
+=over 4
+
+=item * MetaCPAN
+
+L<https://metacpan.org/release/Games-NES-SpriteMaker>
+
+=item * RT: CPAN's request tracker
+
+L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=Games-NES-SpriteMaker>
+
+=item * Github
+
+L<https://github.com/doy/games-nes-spritemaker>
+
+=item * CPAN Ratings
+
+L<http://cpanratings.perl.org/d/Games-NES-SpriteMaker>
+
+=back
+
+=cut
 
 1;
