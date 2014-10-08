@@ -2,14 +2,17 @@ package Games::NES::SpriteMaker;
 use strict;
 use warnings;
 
+use Exporter 'import';
+our @EXPORT_OK = ('image_to_sprite');
+
 use Image::PNM;
 
 =head1 SYNOPSIS
 
-  use Games::NES::SpriteMaker;
+  use Games::NES::SpriteMaker 'image_to_sprite';
 
   open my $fh, '>', 'sprites.chr';
-  my $chr = Games::NES::SpriteMaker::image_to_sprite('spritemap.pgm');
+  my $chr = image_to_sprite('spritemap.pgm');
   $fh->print($chr);
   $fh->close;
 
