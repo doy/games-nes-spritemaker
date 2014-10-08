@@ -5,7 +5,9 @@ use warnings;
 use Image::PNM;
 
 sub image_to_sprite {
-    my ($data) = @_;
+    my ($data, %opts) = @_;
+
+    $opts{rom_size} ||= 8192;
 
     my $image = Image::PNM->new($data);
     if ($image->width % 8 || $image->height % 8) {
@@ -41,7 +43,7 @@ sub image_to_sprite {
         }
     }
 
-    return $bytes;
+    return $bytes . ("\x00" x ($opts{rom_size} - length($bytes)));
 }
 
 sub _get_palette_colors {
