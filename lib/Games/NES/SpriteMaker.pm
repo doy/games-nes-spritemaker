@@ -18,20 +18,20 @@ sub image_to_sprite {
     my $sprite_y = $image->height / 8;
 
     my $bytes = '';
-    for my $base_x (0..$sprite_x-1) {
-        for my $base_y (0..$sprite_y-1) {
-            for my $pixel_x ($base_x..$base_x + 7) {
+    for my $base_y (0..$sprite_y-1) {
+        for my $base_x (0..$sprite_x-1) {
+            for my $pixel_y ($base_y..$base_y + 7) {
                 my $bits;
-                for my $pixel_y ($base_y..$base_y + 7) {
+                for my $pixel_x ($base_x..$base_x + 7) {
                     my $pixel = $image->raw_pixel($pixel_y, $pixel_x);
                     my $pixel_value = $colors{_color_key($pixel)};
                     $bits .= $pixel_value & 0x01 ? "1" : "0";
                 }
                 $bytes .= pack("C", oct("0b$bits"));
             }
-            for my $pixel_x ($base_x..$base_x + 7) {
+            for my $pixel_y ($base_y..$base_y + 7) {
                 my $bits;
-                for my $pixel_y ($base_y..$base_y + 7) {
+                for my $pixel_x ($base_x..$base_x + 7) {
                     my $pixel = $image->raw_pixel($pixel_y, $pixel_x);
                     my $pixel_value = $colors{_color_key($pixel)};
                     $bits .= $pixel_value & 0x02 ? "1" : "0";
